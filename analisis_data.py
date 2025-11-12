@@ -65,62 +65,7 @@ def count(list_data):
     print (data_sorted)
 
     return (header_sorted, value_sorted, header)
-
-#analisis data
-var = []
-p_value = []
-def analisis_korelasi(variabel):    
-    # supaya datanya full gak kepotong
-    pd.set_option('display.max_rows', None)
-    pd.set_option('display.max_columns', None)
-    #pd.set_option('display.width', 1000)
-
-    # bikin tabel ringkasan antara 2 kolom
-    tabel_ringkasan = pd.crosstab(variabel[1:], penyakit[1:])
-    print("="*100)
-    print("TABEL RINGKASAN")
-    print("="*100)
-
-    print(tabel_ringkasan)
-    print("="*100)
-
-    # hitung korelasinya (pake p_value)
-    chi2, p_value, dof, expected = chi2_contingency(tabel_ringkasan)
-
-    print (f"Nilai P-Value adalah : {p_value}")
-    print("="*100)
-
-    if p_value < 0.05:
-        print(f"Ada hubungan antara variabel {variabel[0]} dengan {penyakit[0]}")
-    else:
-        print(f"Tidak Ada hubungan antara variabel {variabel[0]} dengan {penyakit[0]}")
-    print("="*100)
-
-
-    p_valueTable(tabel_ringkasan, variabel[0])
-
-
-    return (variabel[0], p_value)
-
-#visualisasi data
-def p_valueTable(tabel_ringkasan, judul):
-
     
-    tab = plt.table(
-    cellText=tabel_ringkasan.values,      # -> Isi datanya
-    colLabels=tabel_ringkasan.columns,    # -> Judul kolom
-    rowLabels=tabel_ringkasan.index,      # -> Judul baris
-    loc='center',                         # -> Posisikan di tengah
-    cellLoc='center',                     # -> Teks di dalam sel di tengah
-    )
-    tab.scale(1.2, 1.2) # Skalakan ukuran sel
-
-
-# Simpan sebagai gambar
-    nama_file_gambar = f"tabel {judul}.png"
-    plt.savefig(nama_file_gambar, dpi=200, bbox_inches='tight')
-    plt.clf()
-
 def horizontal_bar(data):
     nama, value, title = data
     xlable = "Jumlah Responden"
@@ -205,13 +150,3 @@ for item in main_data[:-1]: # iterasi buat bikin plot untuk setiap listnya
     data = count(item)
     horizontal_bar(data)
     pie_chart(data)
-    data = analisis_korelasi(item)
-    var.append(data[0])
-    p_value.append(data[1])
-
-dat = (var, p_value)
-#visualisasiP_Value(dat)
-print("RINGKASAN P_VALUE")
-for t, p in zip(var, p_value):
-    kesimpulan = "Ada Korelasi" if p <0.05 else "Tidak Ada Korelasi"
-    print(f"{t} : {p} -> {kesimpulan}")
