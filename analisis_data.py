@@ -120,30 +120,6 @@ def pie_chart(data):
     plt.savefig(f"{title} pie.png")
     plt.clf()
 
-def pie_chart(data):
-    nama, value, title = data
-    xlable = "Jumlah Responden"
-    ylable = ''
-    # list warna buat balok
-    warna = [
-        '#9BBE3B',  
-        '#7EB443',  
-        '#5AAE5C',  
-        '#3B9C7C',  
-        '#307D87',  
-        '#356E8A',  
-        '#435E83',  
-        '#4F4D7D',  
-        '#4A356A'   
-        ]
-    plt.title(title) # nampilin judul di atas
-    plt.xlabel(xlable) #nampilin label x (di bawah)
-    plt.ylabel(ylable) #nampilin label y (di samping)
-    plt.pie(value, labels=nama, autopct='%1.1f%%')
-    plt.savefig(f"{title} pie.png")
-    plt.clf()
-
-    
 # visualisasi data
 proses_data()
 for item in main_data[:-1]: # iterasi buat bikin plot untuk setiap listnya
